@@ -175,6 +175,6 @@ public class FirstController {
         System.out.println("contentType = " + contentType);
         System.out.println("sessionId = " + sessionId);
         System.out.println("body = " + body);
-        System.out.println("body = " + URLDecoder.decode(body, "UTF-8"));
+        System.out.println("decode body = " + URLDecoder.decode(body, "UTF-8"));
     }
 }
