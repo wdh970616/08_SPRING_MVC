@@ -30,5 +30,23 @@
 <form action="/menu/delete" method="post">
     <button type="submit">POST 메뉴 삭제 요청</button>
 </form>
+
+<h2>2. 클래스에 요청 매핑하기</h2>
+<h3>GET : /order/regist</h3>
+<button onclick="location.href='/order/regist'">Get 주문 등록 요청</button>
+
+<h3>POST : /order/modify</h3>
+<form action="/order/modify" method="post">
+    <button type="submit">Post 주문 수정 요청</button>
+</form>
+
+<h3>POST : /order/delete</h3>
+<form action="/order/delete" method="post">
+    <button type="submit">Post 주문 삭제 요청</button>
+</form>
+
+<h3>GET : /order/{orderNo}</h3>
+<button onclick="location.href='/order/detail/3'">Get 주문 상제 정보 요청</button>
+
 </body>
 </html>
