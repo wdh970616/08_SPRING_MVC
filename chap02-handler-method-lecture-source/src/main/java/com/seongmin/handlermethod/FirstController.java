@@ -5,12 +5,16 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/first/*")
+@SessionAttributes("id")
 public class FirstController {
 
     /*
@@ -127,5 +131,50 @@ public class FirstController {
         session.setAttribute("id", id);
 
         return "first/loginResult";
+    }
+
+    @GetMapping("logout1")
+    public String logoutTest1(HttpSession session) {
+        session.invalidate();
+        return "first/loginResult";
+    }
+
+    /*
+     * @SessionAttributes를 이용하여 session에 값 담기
+     * 클래스 레벨에 @SessionAttributes 어노테이션을 이용하여 세션에 담을 key값을 설정
+     * Model 영역에 해당 key로 값이 추가되는 경우 session에 자동으로 등록해준다.
+     */
+    @PostMapping("login2")
+    public String sessionTest2(Model model, @RequestParam String id) {
+
+        model.addAttribute("id", id);
+
+        return "first/loginResult";
+    }
+
+    @GetMapping("logout2")
+    public String logoutTest2(SessionStatus sessionStatus) {
+        // 현재 컨트롤러 세션에 저장된 모든 정보를 제거
+        // 개별 제거가 불가능함.
+        sessionStatus.setComplete();
+        return "first/loginResult";
+    }
+
+    @GetMapping("body")
+    public void body() {}
+
+    /*
+     * @RequestBody
+     * - 해당 어노테이션은 http 본문 자체를 읽는 부분을 모델로 변환시켜주는 어노테이션
+     */
+    @PostMapping("body")
+    public void bodyTest(@RequestBody String body,
+                         @RequestHeader("content-type") String contentType,
+                         @CookieValue(value = "JSESSIONID", required = false) String sessionId) throws UnsupportedEncodingException {
+
+        System.out.println("contentType = " + contentType);
+        System.out.println("sessionId = " + sessionId);
+        System.out.println("body = " + body);
+        System.out.println("body = " + URLDecoder.decode(body, "UTF-8"));
     }
 }
