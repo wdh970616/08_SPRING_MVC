@@ -27,7 +27,8 @@ public class StopWatchInterceptor implements HandlerInterceptor {
         long startTime = System.currentTimeMillis();
         request.setAttribute("startTime", startTime);
 
-        return false;
+        // true이면 컨트롤러를 이어서 호출, false면 컨트롤러를 호출하지 않음.
+        return true;
     }
 
     // 후처리 메소드
