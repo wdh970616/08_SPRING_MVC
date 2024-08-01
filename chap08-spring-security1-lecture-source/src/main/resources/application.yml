@@ -1,0 +1,10 @@
+logging:
+  level:
+    root: info
+    com.seongmin.security: debug
+
+spring:
+  security:
+    user:
+      name: test
+      password: test
